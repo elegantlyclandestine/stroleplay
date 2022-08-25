@@ -1,9 +1,7 @@
 // 412854070272 permission integer
 // Require the necessary discord.js classes
 console.log("It's time.")
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { time, assert } = require('console');
-const { Collection, Client, Intents, Message, WebhookClient, MessageEmbed } = require('discord.js');
+const { Collection, Client, Intents, Message, WebhookClient, MessageEmbed, SlashCommandBuilder} = require('discord.js');
 const { token } = require('./resources/config.json');
 const fs = require('fs');
 const prefix = "st/";
@@ -11,6 +9,7 @@ const characterList = require('./resources/characterList.json')
 const characterHandler = require('./characterHandler.js')
 const wordFilter = require('./resources/filterWords.json')
 const bypassCharacters = require('./resources/bypassCharacters.json')
+const r = require('rethinkdb')
 
 // Create a new client instance
 const client = new Client({
@@ -26,7 +25,7 @@ for (const file of commandFiles) {
 	// set a new item in the Collection
 	// with the key as the command name and the value as the exported module
 	client.commands.set(command.name, command);
-    console.log("Successfully loaded "+command.name+".")
+    console.log("Successfully loaded prefix command "+command.name+".")
 }
 
 client.once('ready', () => {
